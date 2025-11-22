@@ -146,3 +146,49 @@ root.render(React.createElement("h1", null, "Hello, World!"));
 ```
 
 In a typical React application, `createElement()` is used to define what the UI should look like, while `createRoot()` is used to mount that UI into the actual DOM.
+
+## Introduction to Spring
+
+### What is Spring?
+
+Spring is a popular open-source framework for building enterprise-level Java applications. It helps developers write clean, modular, and testable code by providing a comprehensive programming and configuration model. Spring provides built-in features for handling databases, security, messaging, and more.
+
+### Why Spring?
+
+Spring makes Java development easier and more efficient by:
+
+- Reducing boilerplate code.
+- Promoting best practices like dependency injection and aspect-oriented programming.
+- Supporting different architectures and platforms.
+- Offering a wide range of modules for various functionalities (e.g., Spring MVC, Spring Data, Spring Security).
+- Works well with other frameworks and libraries.
+
+> Introduced in 2003, the Spring Framework is a comprehensive solution designed to simplify Java enterprise application development. It was created to tackle the challenges of building large-scale applications by promoting a unified programming model and providing a wide range of features that enhance productivity and maintainability.
+
+## Introduction to Spring Core
+
+### What is Spring Core?
+
+Spring Core is the foundation of the entire Spring Framework ecosystem. It provides the fundamental principles, base classes, and core mechanisms that power all other Spring modules and projects.
+
+The entire Spring Framework is built upon the Spring Core module.
+
+### Key Features of Spring Core
+
+Spring Core consists of the following essential components:
+
+- **Inversion of Control (IoC)**: A design principle where the control of object creation and management is transferred from the application code to the Spring container. This promotes loose coupling and enhances testability.
+- **Dependency Injection (DI)**: A specific implementation of IoC that allows objects to receive their dependencies from an external source (the Spring container) rather than creating them internally. This makes it easier to manage and test components.
+- **Beans**: The objects that are managed by the Spring container. Beans are defined in configuration files or through annotations, and the container is responsible for their lifecycle and dependencies.
+- **Application Context**: The central interface for accessing the Spring container. It provides methods for retrieving beans, managing their lifecycle, and handling configuration.
+- **IoC Container**: The core component that manages the lifecycle of beans, including their creation, configuration, and destruction. It reads the configuration metadata and instantiates the beans accordingly.
+
+## Spring vs Spring Boot
+
+**Spring Framework** is a powerful **foundation** for building Java applications, providing a wide range of features and modules for various functionalities. It requires significant configuration and setup to get started.
+
+**Spring Boot**, on the other hand, is a **framework built on top of Spring** that simplifies the development process by providing convention over configuration. It offers auto-configuration, starter dependencies, and embedded servers, allowing developers to quickly create standalone applications with minimal setup.
+
+**Spring Boot is NOT a replacement for Spring Framework**, but rather an extension that enhances productivity and reduces boilerplate code.
+
+> Think of **Spring** as a toolbox full of various tools (modules) for building Java applications, while **Spring Boot** is like a pre-assembled kit that provides you with the essential tools and configurations to get started quickly.
