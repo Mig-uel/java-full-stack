@@ -7,28 +7,37 @@
   </head>
   <body>
     <div id="root"></div>
-    <script src="./react-lib/react-dom.production.min.js"></script>
-    <script src="./react-lib/react.production.min.js"></script>
-
+    <script src="./react-lib/react.development.min.js"></script>
+    <script src="./react-lib/react-dom.development.min.js"></script>
     <script>
+      document.onload = () => {
+        console.log("Document loaded");
+      };
+
       // Generate a random number between 1 and 100
       const randomNumber = Math.floor(Math.random() * 100) + 1;
 
       // Create a new element to display the random number
-      const numberElement = document.createElement("h1");
-      numberElement.textContent = `Random Number: ${randomNumber}`;
+      const numberElement = React.createElement(
+        "h1",
+        {
+          id: "random-number",
+        },
+        `Random Number: ${randomNumber}`
+      );
 
-      const resultElement = document.createElement("h2");
+      const resultElement = React.createElement(
+        "h2",
+        {
+          style: { color: randomNumber % 2 === 0 ? "blue" : "green" },
+        },
+        randomNumber % 2 === 0 ? "The number is even." : "The number is odd."
+      );
 
-      if (!(randomNumber % 2)) {
-        resultElement.textContent = "The number is even.";
-      } else {
-        resultElement.textContent = "The number is odd.";
-      }
-
-      // Append the element to the root div
-      document.getElementById("root").appendChild(numberElement);
-      document.getElementById("root").appendChild(resultElement);
+      const root = ReactDOM.createRoot(document.getElementById("root"));
+      root.render(
+        React.createElement("div", null, [numberElement, resultElement])
+      );
     </script>
   </body>
 </html>
