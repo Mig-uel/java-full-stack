@@ -192,3 +192,25 @@ Spring Core consists of the following essential components:
 **Spring Boot is NOT a replacement for Spring Framework**, but rather an extension that enhances productivity and reduces boilerplate code.
 
 > Think of **Spring** as a toolbox full of various tools (modules) for building Java applications, while **Spring Boot** is like a pre-assembled kit that provides you with the essential tools and configurations to get started quickly.
+
+## What is Inversion of Control (IoC) and Dependency Injection (DI)?
+
+### Inversion of Control (IoC)
+
+Inversion of Control (IoC) is a software design principle that defines how objects are created and managed in an application. It does not create objects directly; instead, it outlines a way for their creation and dependency management to be handled by an external entity, typically a framework or container.
+
+With IoC, the control flow of the application is reversed. Instead of the programmer managing the flow of the application, a framework or service takes over this responsibility, ensuring objects and their dependencies are handled appropriately.
+
+- Normally, in Java, we create objects manually using the `new` keyword.
+- With IoC, Spring manages object creation and dependencies automatically.
+- It reduces manual coding and makes the application more modular, flexible, and testable.
+
+### Dependency Injection (DI)
+
+Dependency Injection (DI) is a design pattern used to implement IoC.
+
+With DI, the responsibility of creating and managing objects is transferred from the application to the Spring IoC container. The container injects the required dependencies into the objects at runtime, rather than the objects creating their own dependencies. This approach reduces coupling between objects by allowing the framework to dynamically provide the required dependencies at runtime.
+
+- DI is a way of providing dependencies to a class instead of creating them inside the class.
+- Helps in brining loose coupling between objects.
+- Spring automatically injects the required dependencies into the objects when they are created by the IoC container.
