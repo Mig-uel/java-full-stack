@@ -92,3 +92,69 @@ Loose coupling means that different parts of a system are not tightly dependent 
 - Replacing modules has minimal impact on the overall system.
 - Enhances code readability and organization.
 - Facilitates better separation of concerns.
+
+## What is Spring Bean, Spring Context, and IoC Container?
+
+### Spring Bean
+
+A Spring Bean is any normal Java class that is instantiated and managed by the Spring IoC container. These beans form the backbone of a Spring application and are created, configured, and managed by the Spring framework.
+
+#### How Beans Are Created
+
+Beans are instantiated by the container based on the **configuration metadata** provided by the developer. This metadata can be defined in various ways:
+
+- **XML Configuration**: Beans can be defined in XML files using `<bean>` tags (legacy approach).
+- **Annotations**: Using annotations like `@Component`, `@Service`, `@Repository`, and `@Controller` to mark classes as beans.
+- **Java Configuration**: Using `@Configuration` classes with `@Bean` methods to define beans programmatically.
+
+#### Bean Lifecycle Management
+
+The Spring IoC container manages the entire lifecycle of beans, including:
+
+- Instantiation
+- Dependency Injection
+- Initialization
+- Destruction
+- Scope management (singleton, prototype, request, session, etc.)
+
+It also ensures that any required dependencies are injected into the beans when they are created.
+
+### Spring Context
+
+The Spring Context, also known as the Application Context, is like the "memory" of your Spring application, where Spring manages all the objects (beans) it needs to run your application. It is a central interface that provides configuration information to the application and allows access to the beans managed by the Spring IoC container.
+
+By default, Spring does not know about the objects or components you define in your application.
+
+To make Spring aware of them, you need to register these components with the Spring Context using:
+
+- Annotations like `@Component`, `@Service`, etc.
+- Explicit bean definitions in XML or Java configuration.
+
+Once registered, the Spring Context can create, configure, and manage these components throughout the application's lifecycle.
+
+### IoC Container
+
+The IoC (Inversion of Control) Container is the core component of the Spring Framework. Its main job is to manage the objects (beans) in your application. It is responsible for:
+
+- Creating instances (beans) of your classes.
+- Configuring these instances based on the metadata you provide (like XML, annotations, or Java config) (e.g., setting properties, injecting dependencies).
+- Managing the lifecycle of these instances (initialization, destruction, etc.).
+
+#### Types of IoC Containers in Spring
+
+There are two main types of IoC containers in Spring:
+
+1. **BeanFactory**
+
+- The simplest container that provides basic support for dependency injection.
+- It provides the basic functionality of managing beans.
+- Suitable for lightweight applications with minimal features.
+- It is lazy-loaded, meaning beans are created only when requested.
+- `org.springframework.beans.factory.BeanFactory` is the root interface.
+
+2. **ApplicationContext**
+
+- A more advanced container that builds on top of BeanFactory.
+- It provides additional features like internationalization, event propagation, and integration with Spring's AOP.
+- It is eager-loaded, meaning all singleton beans are created at startup.
+- `org.springframework.context.ApplicationContext` is the root interface.
