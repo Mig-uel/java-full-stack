@@ -1,0 +1,94 @@
+# Introduction to Spring
+
+## What is Spring?
+
+Spring is a popular open-source framework for building enterprise-level Java applications. It helps developers write clean, modular, and testable code by providing a comprehensive programming and configuration model. Spring provides built-in features for handling databases, security, messaging, and more.
+
+## Why Spring?
+
+Spring makes Java development easier and more efficient by:
+
+- Reducing boilerplate code.
+- Promoting best practices like dependency injection and aspect-oriented programming.
+- Supporting different architectures and platforms.
+- Offering a wide range of modules for various functionalities (e.g., Spring MVC, Spring Data, Spring Security).
+- Works well with other frameworks and libraries.
+
+> Introduced in 2003, the Spring Framework is a comprehensive solution designed to simplify Java enterprise application development. It was created to tackle the challenges of building large-scale applications by promoting a unified programming model and providing a wide range of features that enhance productivity and maintainability.
+
+## Introduction to Spring Core
+
+### What is Spring Core?
+
+Spring Core is the foundation of the entire Spring Framework ecosystem. It provides the fundamental principles, base classes, and core mechanisms that power all other Spring modules and projects.
+
+The entire Spring Framework is built upon the Spring Core module.
+
+### Key Features of Spring Core
+
+Spring Core consists of the following essential components:
+
+- **Inversion of Control (IoC)**: A design principle where the control of object creation and management is transferred from the application code to the Spring container. This promotes loose coupling and enhances testability.
+- **Dependency Injection (DI)**: A specific implementation of IoC that allows objects to receive their dependencies from an external source (the Spring container) rather than creating them internally. This makes it easier to manage and test components.
+- **Beans**: The objects that are managed by the Spring container. Beans are defined in configuration files or through annotations, and the container is responsible for their lifecycle and dependencies.
+- **Application Context**: The central interface for accessing the Spring container. It provides methods for retrieving beans, managing their lifecycle, and handling configuration.
+- **IoC Container**: The core component that manages the lifecycle of beans, including their creation, configuration, and destruction. It reads the configuration metadata and instantiates the beans accordingly.
+
+## Spring vs Spring Boot
+
+**Spring Framework** is a powerful **foundation** for building Java applications, providing a wide range of features and modules for various functionalities. It requires significant configuration and setup to get started.
+
+**Spring Boot**, on the other hand, is a **framework built on top of Spring** that simplifies the development process by providing convention over configuration. It offers auto-configuration, starter dependencies, and embedded servers, allowing developers to quickly create standalone applications with minimal setup.
+
+**Spring Boot is NOT a replacement for Spring Framework**, but rather an extension that enhances productivity and reduces boilerplate code.
+
+> Think of **Spring** as a toolbox full of various tools (modules) for building Java applications, while **Spring Boot** is like a pre-assembled kit that provides you with the essential tools and configurations to get started quickly.
+
+## What is Inversion of Control (IoC) and Dependency Injection (DI)?
+
+### Inversion of Control (IoC)
+
+Inversion of Control (IoC) is a software design principle that defines how objects are created and managed in an application. It does not create objects directly; instead, it outlines a way for their creation and dependency management to be handled by an external entity, typically a framework or container.
+
+With IoC, the control flow of the application is reversed. Instead of the programmer managing the flow of the application, a framework or service takes over this responsibility, ensuring objects and their dependencies are handled appropriately.
+
+- Normally, in Java, we create objects manually using the `new` keyword.
+- With IoC, Spring manages object creation and dependencies automatically.
+- It reduces manual coding and makes the application more modular, flexible, and testable.
+
+### Dependency Injection (DI)
+
+Dependency Injection (DI) is a design pattern used to implement IoC.
+
+With DI, the responsibility of creating and managing objects is transferred from the application to the Spring IoC container. The container injects the required dependencies into the objects at runtime, rather than the objects creating their own dependencies. This approach reduces coupling between objects by allowing the framework to dynamically provide the required dependencies at runtime.
+
+- DI is a way of providing dependencies to a class instead of creating them inside the class.
+- Helps in brining loose coupling between objects.
+- Spring automatically injects the required dependencies into the objects when they are created by the IoC container.
+
+## Advantages of IoC & DI
+
+### Loose Coupling
+
+Loose coupling means that different parts of a system are not tightly dependent on each other. This makes it easier to change or replace components without affecting the entire system. Instead, they are connected in a way that changes in one part have little to no impact on others.
+
+- Ex: Imagine using a TV remote control. The remote can control different TVs, and the TVs can work with different remotes. They are not tightly bound to each other. Nether depends on the specific details of the other - they just need to follow a common interface (like using infrared signals).
+
+#### Why is Loose Coupling Important?
+
+- **Easier Maintenance**: When components are loosely coupled, you can change or update one part of the system without affecting others. This makes it easier to maintain and evolve the system over time.
+- **Improved Flexibility**: Loose coupling allows you to swap out components or replace them with different implementations without major changes to the overall system. This flexibility is crucial in dynamic environments where requirements may change frequently.
+- **Better Reusability**: Loosely coupled components can be reused in different contexts or applications. Since they are not tightly bound to specific implementations, they can be easily integrated into new systems.
+- **Enhanced Testability**: Loosely coupled components are easier to test in isolation. You can mock or stub dependencies during testing, allowing you to focus on testing individual components without worrying about their interactions with others.
+- **Scalability**: As systems grow in complexity, loose coupling helps manage that complexity by keeping components independent. This makes it easier to scale the system by adding or modifying components without introducing tight dependencies.
+- **Easier Collaboration**: In team environments, loose coupling allows different developers or teams to work on separate components without interfering with each other's work. This promotes parallel development and reduces conflicts.
+
+### More Advantages of IoC & DI
+
+- Minimizes the amount of code required for dependency management.
+- Makes Unit testing easier by allowing dependencies to be mocked or stubbed.
+- Increases system maintainability and modularity.
+- Allows for concurrent and independent development of components.
+- Replacing modules has minimal impact on the overall system.
+- Enhances code readability and organization.
+- Facilitates better separation of concerns.
