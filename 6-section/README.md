@@ -158,3 +158,51 @@ There are two main types of IoC containers in Spring:
 - It provides additional features like internationalization, event propagation, and integration with Spring's AOP.
 - It is eager-loaded, meaning all singleton beans are created at startup.
 - `org.springframework.context.ApplicationContext` is the root interface.
+
+## Stereotype Annotations in Spring
+
+Spring provides stereotype annotations, which are special annotations used to mark classes as Spring-managed components. These annotations automatically register Spring Beans in the application context, making it easier to manage and organize your code. These annotations help simplify bean configuration and promote a more modular and maintainable codebase.
+
+Stereotype annotations help Spring identify and manage different types of components in your application, such as services, repositories, and controllers.
+
+Here are some commonly used stereotype annotations in Spring:
+
+- `@Component`: A generic stereotype annotation used to mark a class as a Spring component. It is the base annotation for all other stereotype annotations.
+- `@Service`: A specialization of `@Component` used to mark a class as a service layer component. It indicates that the class contains business logic.
+- `@Repository`: A specialization of `@Component` used to mark a class as a data access component. It indicates that the class interacts with the database or data source.
+- `@Controller`: A specialization of `@Component` used to mark a class as a web controller component. It indicates that the class handles HTTP requests and responses in a web application.
+- `@RestController`: A combination of `@Controller` and `@ResponseBody`, used to create RESTful web services. It indicates that the class handles HTTP requests and returns data directly in the response body.
+
+These stereotype annotations help Spring automatically detect and register the annotated classes as beans in the application context, allowing for easier dependency injection and management of components throughout the application.
+
+Use `@ComponentScan` on a configuration class to enable component scanning, which allows Spring to automatically discover and register beans based on these stereotype annotations.
+
+Example:
+
+```java
+@Configuration
+@ComponentScan(basePackages = "com.example.myapp")
+public class AppConfig {
+    // Configuration code
+}
+```
+
+This configuration class tells Spring to scan the specified package for classes annotated with stereotype annotations and register them as beans in the application context.
+
+### Layers in a Backend Application
+
+In a typical backend application, the code is organized into different layers, each responsible for specific functionalities. Here are the common layers found in a backend application:
+
+1. **Controller/Presentation Layer**: This layer handles incoming HTTP requests, processes them, and returns appropriate responses. It acts as the entry point for the application and is responsible for managing user interactions.
+   - Receives requests, calls the service layer, and returns responses (e.g., JSON, HTML).
+2. **Service/Business Logic Layer**: This layer contains the core business logic of the application. It processes data, applies business rules, and coordinates interactions between different components. Services are typically marked with the `@Service` annotation.
+   - Implements the main functionality of the application, validates data, and enforces business rules.
+3. **Data Access Layer (Repository Layer)**: This layer is responsible for interacting with the database or data source. It performs CRUD (Create, Read, Update, Delete) operations and abstracts the underlying data access logic. Repositories are typically marked with the `@Repository` annotation.
+   - Handles data persistence (CRUD operations), uses Spring JPA or JDBC to interact with the database.
+   - Performs queries using JPQL or native SQL.
+4. **Model/Domain Layer**: This layer represents the data structures and entities used in the application. It defines the business objects and their relationships. Models are typically plain Java objects (POJOs) that encapsulate data and behavior.
+   - Represents the core business entities and data structures used in the application.
+5. **Configuration Layer**: This layer contains configuration classes and settings for the application. It defines beans, component scanning, and other application-level configurations. Configuration classes are typically marked with the `@Configuration` annotation.
+   - Defines beans, component scanning, and other application-level configurations.
+
+By organizing the code into these layers, developers can achieve better separation of concerns, modularity, and maintainability in their backend applications. Each layer has a specific role and interacts with other layers to fulfill the application's requirements.
