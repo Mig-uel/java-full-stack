@@ -206,3 +206,52 @@ In a typical backend application, the code is organized into different layers, e
    - Defines beans, component scanning, and other application-level configurations.
 
 By organizing the code into these layers, developers can achieve better separation of concerns, modularity, and maintainability in their backend applications. Each layer has a specific role and interacts with other layers to fulfill the application's requirements.
+
+## `@Bean` vs `@Component`
+
+In Spring, both `@Bean` and `@Component` are used to define beans that are managed by the Spring IoC container, but they serve different purposes and are used in different contexts.
+
+### `@Bean`
+
+- `@Bean` is used to define a bean explicitly within a Java configuration class.
+- It is typically used when you want to create and configure a bean programmatically.
+- The method annotated with `@Bean` returns an instance of the bean, and Spring manages its lifecycle.
+- It is often used for third-party classes or when you need more control over the bean creation process.
+- One or more instances of the bean can be created based on the method's return type and scope.
+- We can create an object instance of any type of class including present inside libraries like Spring, etc.
+- Developer will have full control in creating and configuring the bean.
+- Spring framework creates the bean based on the instructions provided by the developer inside the method.
+
+Example:
+
+```java
+@Configuration
+public class AppConfig {
+    @Bean
+    public MyService myService() {
+        return new MyServiceImpl();
+    }
+}
+```
+
+### `@Component`
+
+- `@Component` is a class-level annotation used to mark a class as a Spring-managed component.
+- It is typically used for classes that are part of your application and can be automatically detected through component scanning.
+- When a class is annotated with `@Component`, Spring automatically detects it and registers it as a bean in the application context.
+- It is often used for application-specific classes like services, repositories, and controllers.
+- The class itself is the bean, and Spring manages its lifecycle.
+- Only one instance of teh class is created by default (singleton scope) and added to the Spring context.
+- We can create an object instance for application class only which are part of our project.
+- Bean instances can be created with very less code by using stereotype annotations like `@Component`, `@Service`, etc.
+- Developer has less control over the bean creation process as Spring handles it automatically.
+- Spring framework is in charge of creating the bean and post that the developer can use it wherever required.
+
+Example:
+
+```java
+@Component
+public class MyServiceImpl implements MyService {
+    // Implementation code
+}
+```
