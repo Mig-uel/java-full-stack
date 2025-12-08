@@ -255,3 +255,9 @@ public class MyServiceImpl implements MyService {
     // Implementation code
 }
 ```
+
+## Introduction to Beans Wiring Inside Spring
+
+In Java web applications, object often delegate tasks to other objects, creating dependencies between them. Similarly, in Spring, when we define multiple beans, some beans may rely on other beans to function properly. Bean wiring is the process of connecting these dependent beans together so that they can work seamlessly within the Spring IoC container.
+
+Manually managing these dependencies can be cumbersome and error-prone, so Spring provides automatic wiring capabilities (Autowiring) to simplify this process. Autowiring allows Spring to automatically resolve and inject the required dependencies into beans based on their types or names.
