@@ -261,3 +261,27 @@ public class MyServiceImpl implements MyService {
 In Java web applications, object often delegate tasks to other objects, creating dependencies between them. Similarly, in Spring, when we define multiple beans, some beans may rely on other beans to function properly. Bean wiring is the process of connecting these dependent beans together so that they can work seamlessly within the Spring IoC container.
 
 Manually managing these dependencies can be cumbersome and error-prone, so Spring provides automatic wiring capabilities (Autowiring) to simplify this process. Autowiring allows Spring to automatically resolve and inject the required dependencies into beans based on their types or names.
+
+## What is Autowiring in Spring?
+
+Autowiring is a feature in the Spring Framework that allows the Spring IoC container to automatically resolve and inject dependencies into beans. Instead of manually specifying how beans should be wired together, autowiring enables Spring to automatically identify and inject the required dependencies based on certain criteria.
+
+- It eliminates the need for manual object creating using the `new` keyword.
+- Spring finds the right dependencies and injects them into the beans automatically.
+- Makes applications loosely coupled and easier to maintain.
+
+### Why Use Autowiring?
+
+- Reduces boilerplate code for dependency management - No need for manual new object creation.
+- Improves code readability - Dependencies are clearly defined through annotations.
+- Supports loose coupling - Beans can be easily replaced or modified without affecting other components.
+- Spring manages dependencies automatically, reducing the risk of errors.
+
+### Ways to Autowire Beans in Spring
+
+- Spring provides three main ways to perform autowiring:
+  - By Field Injection (using `@Autowired` on fields)
+  - By Setter Injection (using `@Autowired` on setter methods)
+  - By Constructor Injection (using `@Autowired` on constructors)
+
+Each method has its own advantages and use cases, and developers can choose the one that best fits their needs.
