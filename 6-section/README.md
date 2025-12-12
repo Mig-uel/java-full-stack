@@ -312,3 +312,33 @@ While `@Autowired` by type (field injection) is convenient, it has some drawback
 - Field injection does not allow for immutability, or dependencies cannot be declared as `final`, which can lead to unintended modifications of the dependencies after the object is created.
 
 `@Autowired(required = false)` can be used to avoid the `NoSuchBeanDefinitionException` when a matching bean is not found. However, this can lead to `NullPointerException` if the dependency is accessed without checking for null.
+
+## Autowiring Using Setter Injection
+
+Setter injection is a method of autowiring dependencies in Spring by using setter methods. In this approach, the `@Autowired` annotation is placed on the setter method of a class, allowing Spring to inject the required dependency when the setter is called.
+
+Spring injected the dependency using a setter method defined in the class. This method provides more flexibility compared to field injection, as it allows for optional dependencies and better testability.
+
+Example:
+
+```java
+@Component // Marks this class as a Spring component
+class Engine {}
+
+@Component // Marks this class as a Spring component
+class Car {
+   private Engine engine;
+
+   @Autowired // Automatically injects the Engine bean using this setter method
+   public void setEngine(Engine engine) { // Setter Injection
+       this.engine = engine;
+   }
+}
+```
+
+Setter injection has the same drawbacks as field injection.
+
+- Less commonly used compared to constructor injection.
+- Dependencies can still be modified after object creation, which may lead to unintended side effects.
+- Requires additional boilerplate code for setter methods, which can clutter the class definition.
+- Like field injection, it can make it harder to identify required dependencies at a glance.
