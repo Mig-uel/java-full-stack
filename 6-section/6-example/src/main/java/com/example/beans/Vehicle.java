@@ -14,8 +14,8 @@ public class Vehicle {
         @Autowired also has a 'required' attribute which is true by default
         If we set required = false, then if there is no bean of type Engine,
         Spring will not throw an exception and will inject null instead
-     */
-    @Autowired(required = false)
+    */
+    // @Autowired(required = false)
     private Engine engine; // Dependency on Engine bean
 
     public Vehicle() {
@@ -38,6 +38,11 @@ public class Vehicle {
         return engine;
     }
 
+    /*
+        This approach is called Setter Injection
+        This approach is also not recommended for production code
+    */
+    @Autowired
     public void setEngine(Engine engine) {
         this.engine = engine;
     }
