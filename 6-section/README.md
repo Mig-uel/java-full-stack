@@ -285,3 +285,30 @@ Autowiring is a feature in the Spring Framework that allows the Spring IoC conta
   - By Constructor Injection (using `@Autowired` on constructors)
 
 Each method has its own advantages and use cases, and developers can choose the one that best fits their needs.
+
+## Autowiring Using Field Injection
+
+Field injection is a way to automatically inject dependencies directly into the fields of a class using the `@Autowired` annotation. This method allows Spring to set the value of the field without requiring explicit setter methods or constructors.
+
+Spring looks for a matching bean type and injects it automatically into the annotated field. This is a simple and commonly used method for autowiring dependencies.
+
+Example:
+
+```java
+@Component // Marks this class as a Spring component
+class Engine {}
+
+@Component // Marks this class as a Spring component
+class Car {
+   @Autowired // Automatically injects the Engine bean into this field
+   private Engine engine; // Field Injection
+}
+```
+
+While `@Autowired` by type (field injection) is convenient, it has some drawbacks:
+
+- When using field-based autowiring, dependencies cannot be easily mocked or replaced during unit testing, making it harder to isolate and test individual components.
+- With field injection, it is not immediately clear which dependencies a class requires. This can make the code less readable and harder to understand, especially for new developers joining the project.
+- Field injection does not allow for immutability, or dependencies cannot be declared as `final`, which can lead to unintended modifications of the dependencies after the object is created.
+
+`@Autowired(required = false)` can be used to avoid the `NoSuchBeanDefinitionException` when a matching bean is not found. However, this can lead to `NullPointerException` if the dependency is accessed without checking for null.
