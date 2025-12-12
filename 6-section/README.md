@@ -342,3 +342,36 @@ Setter injection has the same drawbacks as field injection.
 - Dependencies can still be modified after object creation, which may lead to unintended side effects.
 - Requires additional boilerplate code for setter methods, which can clutter the class definition.
 - Like field injection, it can make it harder to identify required dependencies at a glance.
+
+## Autowiring Using Constructor Injection
+
+Constructor injection is a method of autowiring dependencies in Spring by using constructor parameters. In this approach, the `@Autowired` annotation is placed on the constructor of a class, allowing Spring to inject the required dependencies when the object is created.
+
+Spring injects the dependencies through the constructor parameters. This method is considered the most robust and preferred way of autowiring, as it ensures that all required dependencies are provided at the time of object creation.
+
+Example:
+
+```java
+@Component // Marks this class as a Spring component
+class Engine {}
+
+@Component // Marks this class as a Spring component
+class Car {
+   private final Engine engine;
+
+   @Autowired // Automatically injects the Engine bean using this constructor
+   public Car(Engine engine) { // Constructor Injection
+       this.engine = engine;
+   }
+}
+```
+
+Constructor injection is the preferred modern approach and works well with immutability and testing.
+
+- Ensures that all required dependencies are provided at the time of object creation, making the object fully initialized and ready to use.
+- Promotes immutability by allowing dependencies to be declared as `final`, preventing unintended modifications after the object is created.
+- Enhances testability by allowing dependencies to be easily mocked or replaced during unit testing, enabling better isolation of components.
+- Makes it clear which dependencies a class requires, improving code readability and maintainability.
+- Avoids the possibility of `NullPointerException` since all dependencies must be provided when the object is created.
+- Reduces boilerplate code compared to setter injection, as there is no need for additional setter methods.
+- Encourages better design practices by promoting the use of constructor parameters for dependency management.

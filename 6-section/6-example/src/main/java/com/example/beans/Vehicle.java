@@ -16,10 +16,16 @@ public class Vehicle {
         Spring will not throw an exception and will inject null instead
     */
     // @Autowired(required = false)
-    private Engine engine; // Dependency on Engine bean
+    private final Engine engine; // Dependency on Engine bean
 
-    public Vehicle() {
-        System.out.println("Vehicle beans created by Spring");
+    /*
+        This approach is called Constructor Injection
+        This is the recommended approach for production code
+    */
+    @Autowired
+    public Vehicle(Engine engine) {
+        this.engine = engine;
+        System.out.println("Vehicle bean created by Spring");
     }
 
     public String getName() {
@@ -42,10 +48,10 @@ public class Vehicle {
         This approach is called Setter Injection
         This approach is also not recommended for production code
     */
-    @Autowired
-    public void setEngine(Engine engine) {
-        this.engine = engine;
-    }
+    // @Autowired
+    // public void setEngine(Engine engine) {
+    //     this.engine = engine;
+    // }
 
     @Override
     public String toString() {
