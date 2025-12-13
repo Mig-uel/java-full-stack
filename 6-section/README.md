@@ -529,3 +529,62 @@ This concept applies only to singleton-scoped beans. Prototype-scoped beans are 
 - Application will throw an exception if bean creation fails at the time of first request.
 - The performance of the application will be impacted if we use lazy initialization for all the beans as each bean will take time to create when requested for the first time.
 - Lazy can be followed for beans which are not frequently used in the application or used in specific scenarios only.
+
+## Prototype Bean Scope
+
+In Spring, the prototype scope is another bean scope that allows for the creation of multiple instances of a bean. When a bean is defined with the prototype scope, a new instance of the bean is created each time it is requested from the Spring IoC container. This is in contrast to the singleton scope, where only one instance of the bean is created and shared across the application.
+
+With prototype scope, every time we request a bean from the Spring context, a new instance is created.
+
+Prototype scope is rarely used inside Spring applications, as singleton scope is sufficient for most use cases. However, prototype scope can be useful in certain scenarios where we need multiple instances of a bean with different states or configurations.
+
+Example:
+
+```java
+@Component
+@Scope("prototype") // Specifying prototype scope
+class UserSession {
+    private String sessionId;
+
+      public UserSession() {
+         this.sessionId = java.util.UUID.randomUUID().toString();
+      }
+
+      public String getSessionId() {
+         return sessionId;
+      }
+}
+
+class Main {
+      public static void main(String[] args) {
+         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
+         UserSession session1 = context.getBean(UserSession.class);
+         UserSession session2 = context.getBean(UserSession.class);
+
+         System.out.println(session1.getSessionId()); // Output: Unique session ID
+         System.out.println(session2.getSessionId()); // Output: Different unique session ID
+         System.out.println(session1 == session2); // Output: false, different instances
+      }
+}
+```
+
+- Use Prototype when you need multiple instances of a bean with different states or configurations, such as user sessions or temporary data holders.
+- Suitable for stateful beans that maintain unique state per instance.
+- Helps ensure that each request for the bean receives a fresh instance, avoiding unintended sharing of state.
+- Increases memory consumption due to multiple instances being created.
+- Requires careful management of bean lifecycle, as the Spring container does not manage the complete lifecycle of prototype beans (e.g., destruction).
+- Not suitable for beans that need to be shared across the application, as each request will result in a new instance.
+
+### Singleton vs Prototype Scope
+
+| Singleton Scope                                                          | Prototype Scope                                                      |
+| ------------------------------------------------------------------------ | -------------------------------------------------------------------- |
+| This is the default scope in Spring.                                     | Needs to be explicitly defined using `@Scope("prototype")`.          |
+| The same object instance will be returned for every request of the bean. | A new object instance will be created for every request of the bean. |
+| We can configure eager or lazy initialization.                           | Always follows lazy initialization.                                  |
+| Immutable state can be maintained easily.                                | Each instance can have its own unique state.                         |
+| Suitable for stateless beans or shared services.                         | Suitable for stateful beans or unique instances.                     |
+| Lower memory consumption due to a single instance.                       | Higher memory consumption due to multiple instances.                 |
+| Lifecycle is fully managed by the Spring container.                      | Lifecycle management (e.g., destruction) is not handled by Spring.   |
+| Easier to manage and maintain.                                           | Requires careful management of instances.                            |
