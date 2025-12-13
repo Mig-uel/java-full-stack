@@ -29,3 +29,20 @@ Each Spring Boot Starter is designed to cater to a specific use case or technolo
 **How Do They Work?**
 
 Instead of adding multiple dependencies for a specific functionality manually, you can simply include the relevant Spring Boot Starter in your build configuration. For example, to create a web application, you can add the `spring-boot-starter-web` dependency, which includes all the necessary libraries for building web applications with Spring MVC.
+
+## `@SpringBootApplication` Annotation
+
+The `@SpringBootApplication` annotation is a convenience annotation that combines three important annotations in Spring Boot:
+
+- `@SpringBootConfiguration`: Indicates that the class is a Spring Boot configuration class.
+- `@EnableAutoConfiguration`: Enables Spring Boot's auto-configuration mechanism, which automatically configures the application based on the dependencies present in the classpath.
+- `@ComponentScan`: Enables component scanning, allowing Spring to discover and register beans in the application context.
+
+By using the `@SpringBootApplication` annotation on the main application class, developers can simplify the configuration and setup of their Spring Boot applications. It serves as the entry point for the application and allows Spring Boot to bootstrap the application context, scan for components, and apply auto-configuration based on the dependencies.
+
+**Why Use `@SpringBootApplication`?**
+
+- Saves time - No need for long XML configurations.
+- Auto-configures - Detects and configures beans based on classpath settings.
+- Simplifies setup - Combines multiple annotations into one.
+- Enhances readability - Makes it clear that this is the main application class.
