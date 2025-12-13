@@ -410,3 +410,17 @@ This ensures that the correct bean is injected, avoiding any ambiguity that may 
 
 - `@Qualifier` is not limited to constructor injection; it can also be used with field and setter injection.
 - Best practice is to use `@Qualifier` with constructor injection for better clarity and maintainability.
+
+## `@Qualifier` vs `@Primary`
+
+If there are multiple beans of the same type, Spring provides two ways to resolve the ambiguity: `@Qualifier` and `@Primary`.
+
+- `@Qualifier` is used to specify which bean to inject by providing its name or identifier. It is applied at the injection point (constructor, setter, or field) to indicate the desired bean.
+- `@Primary` is used to designate a specific bean as the default choice when multiple beans of the same type are available. It is applied at the bean definition level to indicate that this bean should be preferred over others when no specific qualifier is provided.
+
+If `@Primary` is used, you do not need to use `@Qualifier` at the injection point, as Spring will automatically select the primary bean. Spring will automatically select the `@Primary` bean when multiple candidates are available, unless a specific `@Qualifier` is provided. However, there are cases where `@Qualifier` is still needed, even when `@Primary` is used:
+
+| Annotation   | When to Use                                                                                        | How It Works                                                                                                                      |
+| ------------ | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
+| `@Primary`   | When you have a default bean that should be used in most cases.                                    | Spring automatically selects the primary bean when multiple candidates are available, unless a specific `@Qualifier` is provided. |
+| `@Qualifier` | When you need to specify a particular bean to inject, regardless of whether a primary bean exists. | Overrides the default behavior of `@Primary` by explicitly indicating which bean to inject at the injection point.                |
