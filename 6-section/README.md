@@ -505,3 +505,27 @@ class Main {
 - Use Singleton when you need a single shared instance of a bean throughout the application, such as a service or utility class.
 - Suitable for stateless beans or beans that maintain shared state.
 - Helps conserve memory and resources by avoiding unnecessary object creation.
+
+## Eager and Lazy Initialization
+
+By default, Spring beans are eagerly initialized. This means that when the Spring IoC container is created, all singleton beans are instantiated and initialized immediately, regardless of whether they are actually needed at that moment. This approach ensures that all beans are ready for use when the application starts.
+
+We can change the default behavior to lazy initialization by using the `@Lazy` annotation. When a bean is marked as lazy, it will not be created until it is first requested. This can help improve startup time and reduce memory consumption, especially for beans that are not always needed.
+
+This concept applies only to singleton-scoped beans. Prototype-scoped beans are always created lazily, meaning they are instantiated only when requested.
+
+### Eager Initialization (Default)
+
+- This is the default behavior in Spring.
+- The singleton bean will created and initialized as soon as the Spring IoC container is started.
+- The server will not start if there are any issues during bean creation.
+- Spring context will occupy more memory at startup since all beans are created upfront.
+- Eager can be followed for all the beans which are frequently used in the application.
+
+### Lazy Initialization
+
+- This is not a default behavior in Spring and needs to be explicitly specified using `@Lazy` annotation.
+- The singleton bean will be created and initialized only when it is first requested.
+- Application will throw an exception if bean creation fails at the time of first request.
+- The performance of the application will be impacted if we use lazy initialization for all the beans as each bean will take time to create when requested for the first time.
+- Lazy can be followed for beans which are not frequently used in the application or used in specific scenarios only.
