@@ -46,3 +46,32 @@ By using the `@SpringBootApplication` annotation on the main application class, 
 - Auto-configures - Detects and configures beans based on classpath settings.
 - Simplifies setup - Combines multiple annotations into one.
 - Enhances readability - Makes it clear that this is the main application class.
+
+## Spring Boot Auto-Configuration
+
+Spring Boot Auto-Configuration is a powerful feature that automatically configures your Spring application based on the dependencies present in the classpath. It eliminates the need for manual configuration by providing sensible defaults and configurations for various components and libraries.
+
+In simple terms, when you include a specific dependency in your project, Spring Boot's auto-configuration mechanism detects it and applies the necessary configurations to make it work seamlessly within your application.
+
+**How Does Auto-Configuration Work?**
+
+1. You add a dependency to your project (e.g., `spring-boot-starter-web`).
+2. Spring Boot scans the classpath and identifies the presence of specific libraries.
+3. Based on the detected libraries, Spring Boot applies default configurations to set up components like web servers, data sources, security settings, etc.
+4. You can override these default configurations by providing your own custom configurations if needed.
+
+For example, if `spring-boot-starter-web` is included in your project, Spring Boot will automatically configure an embedded web server (like Tomcat) and set up the necessary components for handling web requests.
+
+Few of the default values assumed by Spring Boot Auto-Configuration are:
+
+- `server.port=8080` - default port number
+- `server.servlet.context-path=/` - default context path
+- `logging.level.root=INFO` - default logging level
+
+If you were using traditional Spring Framework, you would have to manually configure a web server, database connections, and other components. With Spring Boot Auto-Configuration, much of this setup is done for you automatically, allowing you to focus on writing your application logic rather than dealing with boilerplate configuration code.
+
+Auto-Configuration is enabled by default in Spring Boot applications through the `@EnableAutoConfiguration` annotation, which is included in the `@SpringBootApplication` annotation. This makes it easy to get started with Spring Boot and take advantage of its powerful auto-configuration capabilities.
+
+Mentioning `debug=true` in `application.properties` will give you a report of auto-configuration decisions made by Spring Boot.
+
+If you want to disable a specific auto-configuration class, you can use the `@EnableAutoConfiguration(exclude={...})` attribute or set the property `spring.autoconfigure.exclude` in `application.properties`.
