@@ -375,3 +375,38 @@ Constructor injection is the preferred modern approach and works well with immut
 - Avoids the possibility of `NullPointerException` since all dependencies must be provided when the object is created.
 - Reduces boilerplate code compared to setter injection, as there is no need for additional setter methods.
 - Encourages better design practices by promoting the use of constructor parameters for dependency management.
+
+## `@Qualifier` Annotation
+
+In Spring, the `@Qualifier` annotation is used in conjunction with `@Autowired` to resolve ambiguity when multiple beans of the same type are present in the application context. When there are multiple candidates for autowiring, Spring needs a way to determine which specific bean should be injected. The `@Qualifier` annotation allows you to specify the exact bean to be injected by providing its name or identifier.
+
+If multiple beans of the same type exist, we can use `@Qualifier` to specify which bean to inject.
+
+- It helps when there are multiple beans of the same type.
+- Avoids ambiguity during autowiring.
+
+Example:
+
+```java
+@Component
+class PetrolEngine implements Engine {}
+
+@Component
+class DieselEngine implements Engine {}
+
+@Component
+class Car {
+   private final Engine engine;
+
+   @Autowired
+   public Car(@Qualifier("dieselEngine") Engine engine) { // Specify which bean to inject
+       this.engine = engine;
+   }
+}
+```
+
+In this example, both `PetrolEngine` and `DieselEngine` implement the `Engine` interface. By using `@Qualifier("dieselEngine")`, we specify that we want to inject the `DieselEngine` bean into the `Car` class.
+This ensures that the correct bean is injected, avoiding any ambiguity that may arise from having multiple beans of the same type.
+
+- `@Qualifier` is not limited to constructor injection; it can also be used with field and setter injection.
+- Best practice is to use `@Qualifier` with constructor injection for better clarity and maintainability.
