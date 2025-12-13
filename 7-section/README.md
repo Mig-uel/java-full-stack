@@ -121,3 +121,44 @@ public class UserController {
   }
 }
 ```
+
+## REST API Best Practices
+
+When designing and building RESTful APIs, it's important to follow best practices to ensure that your API is efficient, maintainable, and easy to use.
+
+1. **Use Nouns for Resource Names**: Use nouns, not verbs, to represent resources. For example, use `/users` instead of `/getUsers`.
+
+- `GET /api/v1/users` - Retrieve a list of users.
+- `POST /api/v1/users` - Create a new user.
+- `GET /api/v1/users/{id}` - Retrieve a specific user by ID.
+- `PUT /api/v1/users/{id}` - Update a specific user by ID.
+- `DELETE /api/v1/users/{id}` - Delete a specific user by ID.
+
+Avoid using actions in the endpoint names.
+
+- Bad: `GET /api/v1/getAllUsers`
+- Good: `GET /api/v1/users`
+
+2. **Use API Versioning**: Include versioning in your API endpoints to manage changes and updates without breaking existing clients.
+
+When you build REST APIs, over time, you may need to make changes that are not backward compatible.
+
+- Adding new fields.
+- Changing request/response formats.
+- Modifying business logic.
+- Deprecating old features.
+
+To handle these changes gracefully, it's essential to version your API from the beginning. This allows clients to continue using the older version while you introduce new features in a new version.
+
+There are several ways to version your API:
+
+- URL Versioning (Path Versioning): Include the version number in the URL path.
+  - Example: `/api/v1/users`, `/api/v2/users`
+- Request Parameter Versioning: Use a query parameter to specify the version.
+  - Example: `/api/users?version=1`, `/api/users?version=2`
+- Header Versioning: Use custom headers to specify the version.
+  - Example: `X-API-Version: 1`, `X-API-Version: 2`
+- Media Type Versioning (Content Negotiation): Use the `Accept` header to specify the version.
+  - Example: `Accept: application/vnd.example.v1+json`, `Accept: application/vnd.example.v2+json`
+
+Choose the versioning strategy that best fits your use case and team preferences. URL versioning is the most common and straightforward approach.
