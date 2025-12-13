@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sh.migl.eazystore.entity.Product;
-import sh.migl.eazystore.repository.ProductRepository;
+import sh.migl.eazystore.service.IProductService;
 
 import java.util.List;
 
@@ -13,15 +13,15 @@ import java.util.List;
 @RequestMapping("api/v1/products") // Base URL for all product-related endpoints
 public class ProductController {
 
-    private final ProductRepository productRepository;
+    private final IProductService productService;
 
     @Autowired
-    public ProductController(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    } // Constructor injection of ProductRepository
+    public ProductController(IProductService productService) {
+        this.productService = productService;
+    }
 
     @GetMapping // Maps HTTP GET requests to this method
     public List<Product> getProducts() {
-        return productRepository.findAll();
+        return productService.getProducts();
     }
 }
