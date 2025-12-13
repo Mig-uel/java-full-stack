@@ -75,3 +75,49 @@ Auto-Configuration is enabled by default in Spring Boot applications through the
 Mentioning `debug=true` in `application.properties` will give you a report of auto-configuration decisions made by Spring Boot.
 
 If you want to disable a specific auto-configuration class, you can use the `@EnableAutoConfiguration(exclude={...})` attribute or set the property `spring.autoconfigure.exclude` in `application.properties`.
+
+## Building RESTful APIs with Spring Boot
+
+**What is a RESTful API?**
+
+RESTful APIs (Representational State Transfer) are a set of architectural principles for designing networked applications. They use standard HTTP methods (GET, POST, PUT, DELETE) to perform operations on resources, which are identified by unique URIs (Uniform Resource Identifiers). RESTful APIs are stateless, meaning that each request from a client to a server must contain all the information needed to understand and process the request.
+
+A REST API:
+
+- Allows clients (e.g., web browsers, mobile apps) to interact with server-side resources.
+- Returns data in a structured format, typically JSON or XML.
+- Is widely used for building web services and enabling communication between different systems.
+
+| HTTP Method | Action                                      |
+| ----------- | ------------------------------------------- |
+| GET         | Retrieve a resource or a list of resources. |
+| POST        | Create a new resource.                      |
+| PUT         | Update an existing resource.                |
+| DELETE      | Remove a resource.                          |
+| PATCH       | Partially update a resource.                |
+
+In Spring Boot, a REST API is created using the `@RestController` annotation, which combines `@Controller` and `@ResponseBody`. This means that the methods in a `@RestController` return data directly in the response body, typically in JSON format.
+
+`@RestController` = `@Controller` + `@ResponseBody`
+
+- `@Controller`: Indicates that the class is a Spring MVC controller.
+- `@ResponseBody`: Indicates that the return value of a method should be bound to the web response body.
+
+In simple terms:
+
+1. The class is treated as a controller that handles HTTP requests.
+2. Each method in the class automatically serializes the return value to JSON (or XML) and sends it back in the HTTP response.
+
+Example:
+
+```java
+@RestController // Marks the class as a REST controller
+@RequestMapping("/api/v1/users") // Base URL for all endpoints in this controller
+public class UserController {
+  @GetMapping("/all") // Handles GET requests to /api/v1/users/all
+  public List<User> getAllUsers() {
+    // Logic to retrieve and return a list of users
+    return List.of("User1", "User2", "User3");
+  }
+}
+```
