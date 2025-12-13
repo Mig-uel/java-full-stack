@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS products (
+    product_id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT DEFAULT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    popularity INT DEFAULT 0,
+    image_url VARCHAR(512),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    created_by VARCHAR(255) DEFAULT NULL,
+    updated_at  TIMESTAMP   DEFAULT NULL,
+    updated_by VARCHAR(255) DEFAULT NULL
+);
