@@ -6,5 +6,5 @@ import sh.migl.eazystore.entity.Product;
 
 @Repository // Indicates that this interface is a Spring Data repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    
+
 }
