@@ -459,3 +459,49 @@ class Engine {
 ```
 
 The example above will result in a circular dependency error because `Car` depends on `Engine`, and `Engine` depends on `Car`.
+
+## Singleton Bean Scope
+
+In Spring, a bean is an object that is managed by the Spring IoC container. When you define a bean, you can also specify its scope, which determines the lifecycle and visibility of the bean within the application context. In other words, the scope defines how many instances of the bean will be created and how they will be shared.
+
+The default scope of a Spring bean is `singleton`. This means that only one instance of the bean will be created for the entire application context. Whenever the bean is requested, the same instance will be returned.
+
+Spring provides several bean scopes, including:
+
+- **Singleton**: This is the default scope. Only one instance of the bean is created per Spring IoC container. All requests for the bean will return the same instance.
+- **Prototype**: A new instance of the bean is created each time it is requested.
+- **Request**: A new instance of the bean is created for each HTTP request. This scope is only valid in web applications.
+- **Session**: A new instance of the bean is created for each HTTP session. This scope is only valid in web applications.
+- **Global Session**: A new instance of the bean is created for each global HTTP session. This scope is only valid in web applications.
+- **Application**: A single instance of the bean is created for the entire application. This scope is only valid in web applications.
+
+### Singleton Scope (Default)
+
+Singleton scope is the default scope for Spring beans. This means that whenever a bean is references or within the application, the same instance of the bean is returned. This is useful for beans that are stateless or have shared state across the application.
+
+Unlike the Singleton Design Pattern, which restricts the instantiation of a class to a single instance within the JVM, Spring's singleton scope operates at the container level. Spring's Singleton scope maintains one instance per bean definition within the the Spring context. If multiple beans of the same type are declared, Spring will manage a separate singleton instance for each unique bean definition, rather than enforcing a single instance across the entire application.
+
+Example:
+
+```java
+@Component
+@Scope("singleton") // Explicitly specifying singleton scope (default)
+class MySingletonBean {
+    // Bean implementation
+}
+
+class Main {
+      public static void main(String[] args) {
+         ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
+         MySingletonBean bean1 = context.getBean(MySingletonBean.class);
+         MySingletonBean bean2 = context.getBean(MySingletonBean.class);
+
+         System.out.println(bean1 == bean2); // Output: true, both references point to the same instance
+      }
+}
+```
+
+- Use Singleton when you need a single shared instance of a bean throughout the application, such as a service or utility class.
+- Suitable for stateless beans or beans that maintain shared state.
+- Helps conserve memory and resources by avoiding unnecessary object creation.
