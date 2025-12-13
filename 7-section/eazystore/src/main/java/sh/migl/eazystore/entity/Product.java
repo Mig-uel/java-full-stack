@@ -1,10 +1,14 @@
 package sh.migl.eazystore.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 
+@Getter // Lombok annotation to generate getter methods for all fields
+@Setter // Lombok annotation to generate setter methods for all fields
 @Entity // Marks this class as a JPA entity
 // An entity is a lightweight, persistent domain object. Typically, an entity represents a table in a relational database, and each entity instance corresponds to a row in that table.
 @Table(name = "products") // Maps this entity to the "products" table in the database
@@ -40,6 +44,4 @@ public class Product {
 
     @Column(name = "updated_by")
     private String updatedBy;
-
-    
 }
