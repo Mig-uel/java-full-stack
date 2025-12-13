@@ -424,3 +424,38 @@ If `@Primary` is used, you do not need to use `@Qualifier` at the injection poin
 | ------------ | -------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | `@Primary`   | When you have a default bean that should be used in most cases.                                    | Spring automatically selects the primary bean when multiple candidates are available, unless a specific `@Qualifier` is provided. |
 | `@Qualifier` | When you need to specify a particular bean to inject, regardless of whether a primary bean exists. | Overrides the default behavior of `@Primary` by explicitly indicating which bean to inject at the injection point.                |
+
+## Understanding & Avoiding Circular Dependencies
+
+A circular dependency occurs when two or more beans depend on each other directly or indirectly, creating a loop in the dependency graph. Spring cannot resolve dependencies and throws an `UnsatisfiedDependencyException` when it encounters a circular dependency during bean creation. This usually happens when using constructor injection, as Spring tries to create the beans in a specific order.
+
+Examples of Circular Dependency:
+
+- Class `Car` depends on Class `Engine`
+- Class `Engine` depends on Class `Car`
+- Spring fails to resolve the dependencies and throws an exception.
+
+```java
+@Component
+class Car {
+   private final Engine engine;
+
+
+   @Autowired
+   public Car(Engine engine) {
+       this.engine = engine;
+   }
+}
+
+@Component
+class Engine {
+   private final Car car;
+
+   @Autowired
+   public Engine(Car car) {
+       this.car = car;
+   }
+}
+```
+
+The example above will result in a circular dependency error because `Car` depends on `Engine`, and `Engine` depends on `Car`.
