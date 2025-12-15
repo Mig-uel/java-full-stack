@@ -317,3 +317,140 @@ Here are some of the benefits of using DTOs:
 - Decouples layers: DTOs can be used to decouple different layers of an application, allowing changes to be made to one layer without affecting other layers.
 - Improves security: DTOs can be used to limit the amount of data that is exposed to the client, reducing the risk of sensitive data being leaked.
 - Enhances maintainability: By using DTOs, you can change the internal representation of data without affecting the external API, making it easier to maintain and evolve the application.
+
+## Intro to CORS
+
+CORS (Cross-Origin Resource Sharing) is a security feature implemented by web browsers to restrict web pages from making requests to a different domain than the one that served the web page. This is done to prevent malicious websites from accessing sensitive data on other domains without permission.
+
+Example of a CORS issue:
+
+Imagine you have a web application hosted on `https://example-frontend.com`, and it needs to make an API request to a backend server hosted on `https://api.example-backend.com`. When the frontend application tries to make a request to the backend server, the browser checks if the backend server allows requests from the frontend's origin.
+If the backend server does not include the appropriate CORS headers in its response, the browser will block the request, and you will see a CORS error in the browser's console.
+To resolve CORS issues, the backend server needs to include specific HTTP headers in its responses to indicate that it allows requests from certain origins. The most common header used for this purpose is `Access-Control-Allow-Origin`.
+For example, the backend server can include the following header in its response to allow requests from `https://example-frontend.com`:
+
+```
+Access-Control-Allow-Origin: https://example-frontend.com
+```
+
+This header tells the browser that it is safe to allow requests from the specified origin. The backend server can also include other CORS headers, such as `Access-Control-Allow-Methods` and `Access-Control-Allow-Headers`, to specify which HTTP methods and headers are allowed in cross-origin requests.
+
+In Spring Boot, you can configure CORS at the global level or at the controller/method level using the `@CrossOrigin` annotation. This allows you to specify which origins are allowed to access your API endpoints.
+
+---
+
+CORS is not a security issue on the server side; it is a default protection mechanism implemented by browsers to protect users from malicious websites. It avoids cross-site request forgery (CSRF) attacks by restricting how resources on a web page can be requested from another domain outside the domain from which the resource originated. And it is the server's responsibility to specify which origins are allowed to access its resources.
+
+**When do two origins differ?**
+
+Two origins are considered different if any of the following components differ:
+
+- Scheme (protocol): e.g., `http` vs. `https`
+- Host (domain): e.g., `example.com` vs. `api.example.com`
+- Port: e.g., `http://example.com:80` vs. `http://example.com:8080`
+
+### How to Fix CORS Issues
+
+If a web application's UI is deployed on one server (e.g., `http://localhost:3000`) and the backend API is deployed on another server (e.g., `http://localhost:8080`), the browser will block requests from the UI to the API due to CORS policy.
+
+We can enable this interaction by configuring CORS in the backend server/application.
+
+#### Method 1: Using `@CrossOrigin` Annotation (Simple & Quick)
+
+You can enable CORS for specific controller classes or methods using the `@CrossOrigin` annotation provided by Spring Framework.
+
+- To enable CORS for a specific controller:
+
+```java
+@RestController
+@RequestMapping("/api/v1/users")
+@CrossOrigin(origins = "http://localhost:3000") // Allow requests from this origin
+public class UserController {
+    @GetMapping("/all")
+    public List<User> getAllUsers() {
+        return List.of("User1", "User2", "User3");
+    }
+}
+```
+
+- To enable CORS for a specific method:
+
+```java
+@RestController
+@RequestMapping("/api/v1/users")
+public class UserController {
+    @GetMapping("/all")
+    @CrossOrigin(origins = "http://localhost:3000") // Allow requests from this origin
+    public List<User> getAllUsers() {
+        return List.of("User1", "User2", "User3");
+    }
+}
+```
+
+#### Method 2: Using a Filter (More Flexible)
+
+A filter is a reusable component that can be applied to multiple controllers or endpoints. You can create a custom CORS filter to handle CORS requests globally.
+
+```java
+@Configuration
+public class CorsConfig {
+  @Bean // Define a CORS filter bean
+  public CorsFilter corsFilter() {
+    CorsConfiguration config = new CorsConfiguration(); // CORS configuration
+    config.setAllowedOrigins(List.of("http://localhost:3000")); // Allowed origins
+    config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS")); // Allowed HTTP methods
+    config.setAllowedHeaders(List.of("Content-Type")); // Allowed headers
+    config.setAllowCredentials(true); // Allow credentials (cookies, authorization headers)
+
+    UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource(); // CORS configuration source
+    source.registerCorsConfiguration("/**", config); // Apply CORS configuration to all endpoints
+    return new CorsFilter(source); // Return the CORS filter
+  }
+}
+```
+
+This filter will apply the specified CORS configuration to all incoming requests, allowing requests from `http://localhost:3000` to access the backend API.
+
+#### Method 3: Use Spring Security
+
+We will cover this in detail in the Security section.
+
+### More About CORS
+
+When a web application makes a cross-origin HTTP request (e.g., from `http://localhost:3000` to `http://localhost:8080`), the browser sends an HTTP request to the server hosting the resource. The server can respond with specific CORS headers to indicate whether the request is allowed or not.
+
+The most common CORS headers are:
+
+- `Access-Control-Allow-Origin`: Specifies which origins are allowed to access the resource. It can be set to a specific origin (e.g., `http://localhost:3000`) or to `*` to allow all origins.
+- `Access-Control-Allow-Methods`: Specifies which HTTP methods are allowed for cross-origin requests (e.g., `GET`, `POST`, `PUT`, `DELETE`).
+- `Access-Control-Allow-Headers`: Specifies which HTTP headers can be used in the actual request (e.g., `Content-Type`, `Authorization`).
+- `Access-Control-Allow-Credentials`: Indicates whether the response to the request can be exposed when the credentials flag is true. When used as part of a response to a preflight request, it indicates that the actual request can include user credentials.
+
+When a web application makes a cross-origin request that is not considered "simple" (e.g., using methods other than GET, POST, or HEAD, or using custom headers), the browser sends a preflight request using the OPTIONS method to the server. The server must respond to this preflight request with the appropriate CORS headers to indicate whether the actual request is allowed.
+
+If the server does not respond with the required CORS headers, the browser will block the actual request, and the web application will not be able to access the resource.
+Here is an example of a preflight request and response:
+
+**Preflight Request:**
+
+```
+OPTIONS /api/v1/users HTTP/1.1
+Host: localhost:8080
+Origin: http://localhost:3000
+Access-Control-Request-Method: POST
+Access-Control-Request-Headers: Content-Type
+```
+
+**Preflight Response:**
+
+```
+HTTP/1.1 200 OK
+Access-Control-Allow-Origin: http://localhost:3000
+Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS
+Access-Control-Allow-Headers: Content-Type
+Access-Control-Allow-Credentials: true
+```
+
+In this example, the preflight request is sent to the `/api/v1/users` endpoint with the `Origin` header set to `http://localhost:3000`. The server responds with the appropriate CORS headers, indicating that requests from this origin are allowed, along with the allowed methods and headers.
+
+If the preflight response is valid, the browser will proceed with the actual request (e.g., a POST request to create a new user). If the preflight response is not valid or missing the required headers, the browser will block the actual request, and the web application will not be able to access the resource.
