@@ -25,7 +25,11 @@ export default function Header() {
           {navLinks.map((link) => {
             if (link.label === "Cart") {
               return (
-                <a href={link.href} className="text-primary py-2">
+                <a
+                  href={link.href}
+                  className="text-primary py-2"
+                  key={link.label}
+                >
                   <FontAwesomeIcon icon={faShoppingBasket} />
                 </a>
               );
@@ -33,6 +37,7 @@ export default function Header() {
 
             return (
               <a
+                key={link.label}
                 href={link.href}
                 className="text-center text-lg font-primary font-semibold text-primary py-2"
               >
