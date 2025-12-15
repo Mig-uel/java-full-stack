@@ -3,45 +3,52 @@ package sh.migl.eazystore.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.math.BigDecimal;
 import java.time.Instant;
 
-@Getter // Lombok annotation to generate getter methods for all fields
-@Setter // Lombok annotation to generate setter methods for all fields
-@Entity // Marks this class as a JPA entity
-// An entity is a lightweight, persistent domain object. Typically, an entity represents a table in a relational database, and each entity instance corresponds to a row in that table.
-@Table(name = "products") // Maps this entity to the "products" table in the database
+@Getter
+@Setter
+@Entity
+@Table(name = "PRODUCTS")
 public class Product {
-    @Id // Specifies the primary key of the entity
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id", nullable = false)
-    private Long productId;
+    @Column(name = "PRODUCT_ID", nullable = false)
+    private Long id;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = "NAME", nullable = false)
     private String name;
 
-    @Column(name = "description")
+    @ColumnDefault("NULL")
+    @Lob
+    @Column(name = "DESCRIPTION")
     private String description;
 
-    @Column(name = "price", nullable = false)
+    @Column(name = "PRICE", nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
 
-    @Column(name = "popularity", nullable = false)
+    @ColumnDefault("0")
+    @Column(name = "POPULARITY")
     private Integer popularity;
 
-    @Column(name = "image_url", length = 512)
+    @Column(name = "IMAGE_URL", length = 512)
     private String imageUrl;
 
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @ColumnDefault("CURRENT_TIMESTAMP")
+    @Column(name = "CREATED_AT", nullable = false)
     private Instant createdAt;
 
-    @Column(name = "created_by", nullable = false, updatable = false)
+    @ColumnDefault("NULL")
+    @Column(name = "CREATED_BY")
     private String createdBy;
 
-    @Column(name = "updated_at")
+    @ColumnDefault("NULL")
+    @Column(name = "UPDATED_AT")
     private Instant updatedAt;
 
-    @Column(name = "updated_by")
+    @ColumnDefault("NULL")
+    @Column(name = "UPDATED_BY")
     private String updatedBy;
 }
