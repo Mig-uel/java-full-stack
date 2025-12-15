@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import apiClient from "../api/apiClient";
-import type { Product } from "../types/products";
+import type { Product } from "../types/product";
 import PageHeading from "./PageHeading";
 import ProductListings from "./ProductListings";
 
