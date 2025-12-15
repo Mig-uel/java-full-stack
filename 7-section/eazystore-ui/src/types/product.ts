@@ -1,9 +1,9 @@
 export type Product = {
-  productId: String;
-  name: String;
-  description: String;
+  productId: string;
+  name: string;
+  description: string;
   price: number;
   popularity: number;
-  imageUrl: String;
+  imageUrl: string;
   createdAt: Date;
 };
