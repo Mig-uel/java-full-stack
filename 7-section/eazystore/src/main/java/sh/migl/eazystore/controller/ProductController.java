@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import sh.migl.eazystore.entity.Product;
+import sh.migl.eazystore.dto.ProductDto;
 import sh.migl.eazystore.service.IProductService;
 
 import java.util.List;
@@ -21,7 +21,7 @@ public class ProductController {
     }
 
     @GetMapping // Maps HTTP GET requests to this method
-    public List<Product> getProducts() {
+    public List<ProductDto> getProducts() {
         return productService.getProducts();
     }
 }
