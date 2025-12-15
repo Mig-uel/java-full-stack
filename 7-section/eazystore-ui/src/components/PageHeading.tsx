@@ -1,3 +1,5 @@
+import PageTitle from "./PageTitle";
+
 export default function PageHeading({
   title,
   children,
@@ -6,9 +8,10 @@ export default function PageHeading({
   children: React.ReactNode;
 }) {
   return (
-    <div>
-      <h1>{title}</h1>
-      <p>{children}</p>
+    <div className="text-center max-w-xl mx-auto px-4 py-6">
+      <PageTitle title={title} />
+
+      <p className="font-primary leading-6 text-gray-600">{children}</p>
     </div>
   );
 }
