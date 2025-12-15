@@ -1,9 +1,9 @@
 package sh.migl.eazystore.service;
 
-import sh.migl.eazystore.entity.Product;
+import sh.migl.eazystore.dto.ProductDto;
 
 import java.util.List;
 
 public interface IProductService {
-    List<Product> getProducts(); // Method to retrieve a list of products
+    List<ProductDto> getProducts(); // Method to retrieve a list of products
 }
