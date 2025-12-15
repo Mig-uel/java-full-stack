@@ -303,3 +303,17 @@ Here's a summary of the key interfaces in Spring Data:
 These interfaces provide a solid foundation for building data access layers in Spring applications, allowing developers to focus on business logic rather than boilerplate code for database operations.
 
 By extending these interfaces, you can create your own repository interfaces that inherit the methods defined in them. Spring Data will automatically generate the implementation for these interfaces at runtime, allowing you to perform database operations with ease.
+
+## DTO Pattern
+
+DTO (Data Transfer Object) is a design pattern used to transfer data between different layers or components of an application. It is a simple object that encapsulates data and is used to carry data between processes, such as between the client and server in a web application.
+
+DTOs are simple objects that contain only data, and they do not contain any business logic or behavior. They are typically used to transfer data over the network or between different layers of an application, such as from the service layer to the presentation layer.
+
+Here are some of the benefits of using DTOs:
+
+- Reduces network overhead: DTOs can be used to batch up multiple pieces of data into a single object, reducing the number of network calls required to transfer data.
+- Encapsulates serialization logic: DTOs can be designed to be easily serialized and deserialized, making it easier to transfer data over the network.
+- Decouples layers: DTOs can be used to decouple different layers of an application, allowing changes to be made to one layer without affecting other layers.
+- Improves security: DTOs can be used to limit the amount of data that is exposed to the client, reducing the risk of sensitive data being leaked.
+- Enhances maintainability: By using DTOs, you can change the internal representation of data without affecting the external API, making it easier to maintain and evolve the application.
