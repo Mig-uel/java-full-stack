@@ -14,10 +14,12 @@ export default function ErrorPage() {
       <main className="grow">
         <div className="py-12 bg-normal-bg dark:bg-dark-bg font-primary">
           <div className="max-w-4xl mx-auto px-4">
-            <PageTitle title={error.status} />
+            <PageTitle title={error.status || "Error"} />
           </div>
           <div className="text-center text-gray-600 dark:text-lighter flex flex-col items-center">
-            <p className="max-w-xl px-2 mx-auto leading-6 mb-4">{error.data}</p>
+            <p className="max-w-xl px-2 mx-auto leading-6 mb-4">
+              {error.data || "An unexpected error occurred."}
+            </p>
             <img
               src={errorImage}
               alt="Error"
