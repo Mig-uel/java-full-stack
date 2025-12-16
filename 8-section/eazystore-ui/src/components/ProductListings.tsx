@@ -5,7 +5,7 @@ import apiClient from "../api/apiClient";
 import SearchBox from "./SearchBox";
 import Dropdown from "./Dropdown";
 
-const sortOptions = ["Popularity", "Price: Low to High", "Price: High to Low"];
+const sortOptions = ["popularity", "price: low to high", "price: high to low"];
 
 export default function ProductListings() {
   const [error, setError] = useState<string | null>(null);
@@ -13,6 +13,13 @@ export default function ProductListings() {
   const [products, setProducts] = useState<Product[]>([]);
 
   const [searchTerm, setSearchTerm] = useState("");
+  const [sortOption, setSortOption] = useState(sortOptions[0]);
+
+  const filteredAndSortedProducts = products.filter(
+    (product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.description.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   useEffect(() => {
     async function fetchProducts() {
@@ -71,11 +78,12 @@ export default function ProductListings() {
         <Dropdown
           label="Sort By"
           options={sortOptions}
-          selectedOption="Popularity"
+          selectedOption={sortOption}
+          setSelectedOption={setSortOption}
         />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-6 py-12">
-        {products.map((product) => (
+        {filteredAndSortedProducts.map((product) => (
           <ProductCard key={product.productId} product={product} />
         ))}
       </div>
