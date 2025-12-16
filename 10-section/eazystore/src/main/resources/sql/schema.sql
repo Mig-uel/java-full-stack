@@ -20,8 +20,7 @@ CREATE TABLE IF NOT EXISTS contacts
     message    varchar(500)                          not null,
     phone      varchar(15)                           not null,
     created_at timestamp default current_timestamp() not null,
-    created_by varchar(50)                           not null,
-    updated_at timestamp default current_timestamp() not null on update current_timestamp(),
+    updated_at timestamp                             DEFAULT NULL,
     updated_by varchar(50)                           DEFAULT NULL
 );
 
