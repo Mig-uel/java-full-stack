@@ -7,9 +7,9 @@ import App from "./App.tsx";
 import About from "./components/About.tsx";
 import Cart from "./components/Cart.tsx";
 import Contact from "./components/Contact.tsx";
-import Login from "./components/Login.tsx";
-import Home from "./components/Home.tsx";
 import ErrorPage from "./components/ErrorPage.tsx";
+import Home from "./components/Home.tsx";
+import Login from "./components/Login.tsx";
 
 const router = createBrowserRouter([
   {
