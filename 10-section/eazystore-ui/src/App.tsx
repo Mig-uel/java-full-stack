@@ -1,12 +1,17 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigation } from "react-router-dom";
 import Footer from "./components/Footer";
 import Header from "./components/Header";
+import Spinner from "./components/Spinner";
 
 function App() {
+  const navigation = useNavigation();
+
   return (
     <>
       <Header />
-      <Outlet />
+
+      {navigation.state === "loading" ? <Spinner /> : <Outlet />}
+
       <Footer />
     </>
   );
