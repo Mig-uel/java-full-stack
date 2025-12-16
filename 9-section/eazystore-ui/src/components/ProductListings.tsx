@@ -72,7 +72,7 @@ export default function ProductListings() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center min-h-screen">
+      <div className="flex items-center justify-center min-h-screen dark:text-lighter">
         <span className="text-xl font-semibold">Loading products...</span>
       </div>
     );
@@ -109,7 +109,7 @@ export default function ProductListings() {
             <ProductCard key={product.productId} product={product} />
           ))
         ) : (
-          <p className="text-center font-primary font-bold text-lg text-primary">
+          <p className="text-center font-primary font-bold text-lg text-primary dark:text-lighter col-span-full">
             No products found
           </p>
         )}

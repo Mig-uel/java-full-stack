@@ -13,10 +13,16 @@ export default function Dropdown({
 }) {
   return (
     <div className="flex items-center gap-2 justify-end pr-12 flex-1 font-primary">
-      <label className="text-lg font-semibold text-primary">{label}</label>
+      <label
+        htmlFor="sortBy"
+        className="text-lg font-semibold text-primary dark:text-light"
+      >
+        {label}
+      </label>
 
       <select
-        className="px-4 py-2 text-base border rounded-md transition border-primary focus:ring focus:ring-dark focus:outline-none text-gray-800 capitalize"
+        id="sortBy"
+        className="px-2 py-2 text-base border rounded-md transition border-primary dark:border-light focus:ring focus:ring-dark dark:focus:ring-lighter focus:outline-none text-gray-800 dark:text-lighter capitalize"
         value={selectedOption}
         onChange={(e) =>
           setSelectedOption({
@@ -26,7 +32,11 @@ export default function Dropdown({
         }
       >
         {options.map((option) => (
-          <option key={option.value} value={option.value}>
+          <option
+            className="dark:bg-dark-bg dark:text-lighter"
+            key={option.value}
+            value={option.value}
+          >
             {option.label}
           </option>
         ))}

@@ -29,14 +29,14 @@ export default function Header() {
   }
 
   return (
-    <header className="border-b border-gray-300 sticky top-0 z-20 bg-gray-100">
+    <header className="border-b border-gray-300 dark:border-gray-600 sticky top-0 z-20 bg-normal-bg dark:bg-dark-bg">
       <div className="flex items-center justify-between mx-auto max-w-6xl px-6 py-4">
         <a
           href="/"
-          className="text-center text-lg font-primary font-semibold text-primary py-2"
+          className="text-center text-lg font-primary font-semibold text-primary py-2 dark:text-light hover:text-dark dark:hover:text-lighter"
         >
           <FontAwesomeIcon icon={faTags} className="h-8 w-8" />
-          <span className="font-bold">Eazy Stickers</span>
+          <span className="font-bold"> Eazy Stickers</span>
         </a>
 
         <nav className="flex items-center gap-4 py-2 z-10">
@@ -58,7 +58,7 @@ export default function Header() {
                 return (
                   <a
                     href={link.href}
-                    className="text-primary py-2"
+                    className="text-primary py-2 dark:text-light hover:text-dark dark:hover:text-lighter"
                     key={link.label}
                   >
                     <FontAwesomeIcon icon={faShoppingBasket} />
@@ -70,7 +70,7 @@ export default function Header() {
                 <a
                   key={link.label}
                   href={link.href}
-                  className="text-center text-lg font-primary font-semibold text-primary py-2"
+                  className="text-center text-lg font-primary font-semibold text-primary py-2 dark:text-light hover:text-dark dark:hover:text-lighter"
                 >
                   {link.label}
                 </a>
