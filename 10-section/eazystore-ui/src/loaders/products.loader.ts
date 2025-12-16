@@ -6,7 +6,8 @@ export default async function productsLoader() {
     const response = await apiClient.get<Product[]>("/products");
     return response.data;
   } catch (error: any) {
+    console.log(error);
     const err = error.response?.data?.message || "Failed to fetch products.";
-    console.error(err);
+    throw new Response(err, { status: error.status || 500 });
   }
 }
