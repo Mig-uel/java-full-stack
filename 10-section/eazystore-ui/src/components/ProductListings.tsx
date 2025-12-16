@@ -1,10 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
-import apiClient from "../api/apiClient";
+import { useMemo, useState } from "react";
 import type { Product } from "../types/product";
 import type { SortOption } from "../types/sortOption";
 import Dropdown from "./Dropdown";
 import ProductCard from "./ProductCard";
 import SearchBox from "./SearchBox";
+import { useLoaderData } from "react-router-dom";
 
 const sortOptions = [
   {
@@ -22,32 +22,10 @@ const sortOptions = [
 ];
 
 export default function ProductListings() {
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setIsLoading] = useState<boolean>(true);
-  const [products, setProducts] = useState<Product[]>([]);
+  const products = useLoaderData<Product[]>(); // Loaded via productsLoader
 
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState<SortOption>(sortOptions[0]);
-
-  useEffect(() => {
-    async function fetchProducts() {
-      try {
-        const response = await apiClient.get<Product[]>("/products");
-        setProducts(response.data);
-        setError(null);
-      } catch (error: any) {
-        const err =
-          error.response?.data?.message || "Failed to fetch products.";
-
-        console.error(err);
-        setError(err);
-      } finally {
-        setIsLoading(false);
-      }
-    }
-
-    fetchProducts();
-  }, []);
 
   const filteredAndSortedProducts = useMemo(() => {
     // This memo is to avoid unnecessary computations on every render
@@ -69,22 +47,6 @@ export default function ProductListings() {
 
     return filteredAndSortedProducts;
   }, [searchTerm, sortOption, products]);
-
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center min-h-screen dark:text-lighter">
-        <span className="text-xl font-semibold">Loading products...</span>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <span className="text-xl font-semibold text-red-600">{error}</span>
-      </div>
-    );
-  }
 
   return (
     <div className="max-w-6xl mx-auto">
