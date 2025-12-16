@@ -33,14 +33,9 @@ public class Contact {
     @Column(name = "created_at", nullable = false)
     private Instant createdAt;
 
-    @Column(name = "created_by", nullable = false, length = 50)
-    private String createdBy;
-
-    @ColumnDefault("current_timestamp()")
-    @Column(name = "updated_at", nullable = false)
+    @Column(name = "updated_at")
     private Instant updatedAt;
 
     @Column(name = "updated_by", length = 50)
     private String updatedBy;
-
 }
