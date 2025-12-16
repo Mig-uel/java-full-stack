@@ -4,8 +4,22 @@ import ProductCard from "./ProductCard";
 import apiClient from "../api/apiClient";
 import SearchBox from "./SearchBox";
 import Dropdown from "./Dropdown";
+import type { SortOption } from "../types/sortOption";
 
-const sortOptions = ["popularity", "price: low to high", "price: high to low"];
+const sortOptions = [
+  {
+    label: "popularity",
+    value: "popularity",
+  },
+  {
+    label: "price: low to high",
+    value: "asc",
+  },
+  {
+    label: "price: high to low",
+    value: "desc",
+  },
+];
 
 export default function ProductListings() {
   const [error, setError] = useState<string | null>(null);
@@ -13,13 +27,23 @@ export default function ProductListings() {
   const [products, setProducts] = useState<Product[]>([]);
 
   const [searchTerm, setSearchTerm] = useState("");
-  const [sortOption, setSortOption] = useState(sortOptions[0]);
+  const [sortOption, setSortOption] = useState<SortOption>(sortOptions[0]);
 
-  const filteredAndSortedProducts = products.filter(
-    (product) =>
-      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredAndSortedProducts = products
+    .filter(
+      (product) =>
+        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchTerm.toLowerCase())
+    )
+    .sort((a, b) => {
+      if (sortOption.value === "asc") {
+        return a.price - b.price;
+      } else if (sortOption.value === "desc") {
+        return b.price - a.price;
+      } else {
+        return b.popularity - a.popularity;
+      }
+    });
 
   useEffect(() => {
     async function fetchProducts() {
@@ -78,7 +102,7 @@ export default function ProductListings() {
         <Dropdown
           label="Sort By"
           options={sortOptions}
-          selectedOption={sortOption}
+          selectedOption={sortOption.value}
           setSelectedOption={setSortOption}
         />
       </div>
