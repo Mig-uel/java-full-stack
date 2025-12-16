@@ -21,7 +21,7 @@ export default function Header() {
           <span className="font-bold">Eazy Stickers</span>
         </a>
 
-        <nav className="flex items-center py-2 z-10">
+        <nav className="flex items-center gap-2 py-2 z-10">
           {navLinks.map((link) => {
             if (link.label === "Cart") {
               return (
