@@ -2,6 +2,7 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
+import productsLoader from "./loaders/products.loader.ts";
 
 import App from "./App.tsx";
 import About from "./components/About.tsx";
@@ -20,6 +21,8 @@ const router = createBrowserRouter([
         path: "/",
         element: <Home />,
         index: true,
+        loader: productsLoader,
+        // hydrateFallbackElement: <p>Loading products...</p>, // Implement later
       },
       {
         path: "/about",
