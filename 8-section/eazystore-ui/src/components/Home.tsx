@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import apiClient from "../api/apiClient";
 import type { Product } from "../types/product";
 import PageHeading from "./PageHeading";
@@ -52,7 +52,10 @@ export default function Home() {
         unique stickers. Perfect for any occasion!
       </PageHeading>
 
-      <ProductListings products={products} />
+      {/* TODO: Implement Suspense */}
+      <Suspense fallback={<div>Loading products...</div>}>
+        <ProductListings products={products} />
+      </Suspense>
     </div>
   );
 }
