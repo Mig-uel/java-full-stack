@@ -19,8 +19,13 @@ export default function Header() {
   const [theme, setTheme] = useState("light");
 
   function toggleTheme() {
-    if (theme === "light") setTheme("dark");
-    else setTheme("light");
+    if (theme === "light") {
+      setTheme("dark");
+      document.documentElement.classList.add("dark");
+    } else {
+      setTheme("light");
+      document.documentElement.classList.remove("dark");
+    }
   }
 
   return (
@@ -34,7 +39,7 @@ export default function Header() {
           <span className="font-bold">Eazy Stickers</span>
         </a>
 
-        <nav className="flex items-center gap-2 py-2 z-10">
+        <nav className="flex items-center gap-4 py-2 z-10">
           <button
             className="flex items-center justify-center mx-3 w-8 h-8 rounded-full border border-primary dark:border-light transition duration-300 hover:bg-gray-300 dark:hover:bg-gray-600"
             aria-label="Toggle theme"
