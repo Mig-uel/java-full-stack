@@ -6,6 +6,7 @@ export default function Contact() {
     "block text-lg font-semibold text-primary dark:text-light mb-2";
   const textFieldStyle =
     "w-full px-4 py-2 text-base border rounded-md transition border-primary dark:border-light focus:ring focus:ring-dark dark:focus:ring-lighter focus:outline-none text-gray-800 dark:text-lighter bg-white dark:bg-gray-600 placeholder-gray-400 dark:placeholder-gray-300";
+
   return (
     <div className="max-w-6xl min-h-213 mx-auto px-6 py-8 font-primary bg-normal-bg dark:bg-dark-bg">
       {/* Page Title */}
@@ -54,12 +55,12 @@ export default function Contact() {
 
           {/* Mobile Field */}
           <div>
-            <label htmlFor="mobileNumber" className={labelStyle}>
+            <label htmlFor="phone" className={labelStyle}>
               Mobile Number
             </label>
             <input
-              id="mobileNumber"
-              name="mobileNumber"
+              id="phone"
+              name="phone"
               type="tel"
               required
               pattern="^\d{10}$"
