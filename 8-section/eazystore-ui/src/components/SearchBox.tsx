@@ -2,10 +2,12 @@ export default function SearchBox({
   label,
   placeholder,
   value,
+  setValue,
 }: {
   label: string;
   placeholder: string;
   value: string;
+  setValue: (value: string) => void;
 }) {
   return (
     <div className="flex items-center gap-3 pl-4 flex-1 font-primary">
@@ -15,7 +17,8 @@ export default function SearchBox({
         type="text"
         placeholder={placeholder}
         value={value}
-        className="px-3 py-2 text-base rounded-md transition border-primary focus:ring focus:ring-dark focus:outline-none flex-1"
+        className="px-4 py-2 text-base border rounded-md transition border-primary focus:ring focus:ring-dark focus:outline-none text-gray-800"
+        onChange={(e) => setValue(e.target.value)}
       />
     </div>
   );
