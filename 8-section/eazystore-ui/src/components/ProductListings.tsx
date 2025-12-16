@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
-import type { Product } from "../types/product";
-import ProductCard from "./ProductCard";
+import { useEffect, useMemo, useState } from "react";
 import apiClient from "../api/apiClient";
-import SearchBox from "./SearchBox";
-import Dropdown from "./Dropdown";
+import type { Product } from "../types/product";
 import type { SortOption } from "../types/sortOption";
+import Dropdown from "./Dropdown";
+import ProductCard from "./ProductCard";
+import SearchBox from "./SearchBox";
 
 const sortOptions = [
   {
@@ -29,22 +29,6 @@ export default function ProductListings() {
   const [searchTerm, setSearchTerm] = useState("");
   const [sortOption, setSortOption] = useState<SortOption>(sortOptions[0]);
 
-  const filteredAndSortedProducts = products
-    .filter(
-      (product) =>
-        product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        product.description.toLowerCase().includes(searchTerm.toLowerCase())
-    )
-    .sort((a, b) => {
-      if (sortOption.value === "asc") {
-        return a.price - b.price;
-      } else if (sortOption.value === "desc") {
-        return b.price - a.price;
-      } else {
-        return b.popularity - a.popularity;
-      }
-    });
-
   useEffect(() => {
     async function fetchProducts() {
       try {
@@ -65,6 +49,27 @@ export default function ProductListings() {
     fetchProducts();
   }, []);
 
+  const filteredAndSortedProducts = useMemo(() => {
+    // This memo is to avoid unnecessary computations on every render
+    const filteredAndSortedProducts = products
+      .filter(
+        (product) =>
+          product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          product.description.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+      .sort((a, b) => {
+        if (sortOption.value === "asc") {
+          return a.price - b.price;
+        } else if (sortOption.value === "desc") {
+          return b.price - a.price;
+        } else {
+          return b.popularity - a.popularity;
+        }
+      });
+
+    return filteredAndSortedProducts;
+  }, [searchTerm, sortOption, products]);
+
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -78,14 +83,6 @@ export default function ProductListings() {
       <div className="flex items-center justify-center min-h-screen">
         <span className="text-xl font-semibold text-red-600">{error}</span>
       </div>
-    );
-  }
-
-  if (!products.length) {
-    return (
-      <p className="text-center font-primary font-bold text-lg text-primary">
-        No products found
-      </p>
     );
   }
 
@@ -107,9 +104,15 @@ export default function ProductListings() {
         />
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-y-8 gap-x-6 py-12">
-        {filteredAndSortedProducts.map((product) => (
-          <ProductCard key={product.productId} product={product} />
-        ))}
+        {filteredAndSortedProducts.length ? (
+          filteredAndSortedProducts.map((product) => (
+            <ProductCard key={product.productId} product={product} />
+          ))
+        ) : (
+          <p className="text-center font-primary font-bold text-lg text-primary">
+            No products found
+          </p>
+        )}
       </div>
     </div>
   );
