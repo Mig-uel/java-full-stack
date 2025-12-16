@@ -1,11 +1,11 @@
 import {
+  faMoon,
   faShoppingBasket,
   faSun,
   faTags,
-  faMoon,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import useTheme from "../hooks/useTheme";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -16,17 +16,7 @@ const navLinks = [
 ];
 
 export default function Header() {
-  const [theme, setTheme] = useState("light");
-
-  function toggleTheme() {
-    if (theme === "light") {
-      setTheme("dark");
-      document.documentElement.classList.add("dark");
-    } else {
-      setTheme("light");
-      document.documentElement.classList.remove("dark");
-    }
-  }
+  const [theme, toggleTheme] = useTheme();
 
   return (
     <header className="border-b border-gray-300 dark:border-gray-600 sticky top-0 z-20 bg-normal-bg dark:bg-dark-bg">
