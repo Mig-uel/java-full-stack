@@ -19,7 +19,7 @@ export default function Cart() {
             className="max-w-75 mx-auto mb-6 dark:bg-light dark:rounded-md"
           />
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate("/", { replace: true })}
             className="py-2 px-4 bg-primary dark:bg-light text-white dark:text-black text-xl font-semibold rounded-sm flex justify-center items-center hover:bg-dark dark:hover:bg-lighter transition"
           >
             Back to Products
