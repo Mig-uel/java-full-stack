@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import sh.migl.eazystore.dto.ContactDto;
 import sh.migl.eazystore.repository.ContactRepository;
 import sh.migl.eazystore.service.IContactService;
+import sh.migl.eazystore.entity.Contact;
+
+import java.time.Instant;
 
 @Service // Marks this class as a Spring service component
 public class ContactServiceImpl implements IContactService {
@@ -20,7 +23,7 @@ public class ContactServiceImpl implements IContactService {
     public boolean saveContact(ContactDto contactDto) {
         try {
             Contact contact = transformToEntity(contactDto);
-            contact.setCreatedBy(contact.getName());
+            contact.setCreatedAt(Instant.now());
             contactRepository.save(contact);
             return true;
         } catch (Exception e) {
