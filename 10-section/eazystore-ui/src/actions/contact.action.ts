@@ -11,9 +11,8 @@ export default async function contactAction({ request }: { request: Request }) {
       message: formData.get("message") as string,
     };
 
-    const res = await apiClient.post("/contacts", contact);
+    await apiClient.post("/contacts", contact);
 
-    console.log(res.data);
     return { success: true };
   } catch (error) {
     throw new Response(
