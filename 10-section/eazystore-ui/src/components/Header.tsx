@@ -47,13 +47,13 @@ export default function Header() {
             {navLinks.map((link) => {
               if (link.label === "Cart") {
                 return (
-                  <NavLink
+                  <Link
                     to={link.href}
                     className="text-primary py-2 dark:text-light hover:text-dark dark:hover:text-lighter"
                     key={link.label}
                   >
                     <FontAwesomeIcon icon={faShoppingBasket} />
-                  </NavLink>
+                  </Link>
                 );
               }
 
@@ -61,7 +61,11 @@ export default function Header() {
                 <NavLink
                   key={link.label}
                   to={link.href}
-                  className="text-center text-lg font-primary font-semibold text-primary py-2 dark:text-light hover:text-dark dark:hover:text-lighter"
+                  className={({ isActive }) => {
+                    return isActive
+                      ? "underline text-center text-lg font-primary font-semibold text-primary py-2 dark:text-light hover:text-dark dark:hover:text-lighter"
+                      : "text-center text-lg font-primary font-semibold text-primary py-2 dark:text-light hover:text-dark dark:hover:text-lighter";
+                  }}
                 >
                   {link.label}
                 </NavLink>
