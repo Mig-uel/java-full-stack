@@ -11,6 +11,7 @@ import Contact from "./components/Contact.tsx";
 import ErrorPage from "./components/ErrorPage.tsx";
 import Home from "./components/Home.tsx";
 import Login from "./components/Login.tsx";
+import contactAction from "./actions/contact.action.ts";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,7 @@ const router = createBrowserRouter([
       {
         path: "/contact",
         element: <Contact />,
+        action: contactAction,
       },
       {
         path: "/login",
