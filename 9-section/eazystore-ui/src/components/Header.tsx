@@ -1,14 +1,27 @@
-import { faShoppingBasket, faTags } from "@fortawesome/free-solid-svg-icons";
+import {
+  faShoppingBasket,
+  faSun,
+  faTags,
+  faMoon,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
+  { href: "/contact", label: "Contact" },
+  { href: "/login", label: "Login" },
+  { href: "/cart", label: "Cart" },
+];
 
 export default function Header() {
-  const navLinks = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
-    { href: "/contact", label: "Contact" },
-    { href: "/login", label: "Login" },
-    { href: "/cart", label: "Cart" },
-  ];
+  const [theme, setTheme] = useState("light");
+
+  function toggleTheme() {
+    if (theme === "light") setTheme("dark");
+    else setTheme("light");
+  }
 
   return (
     <header className="border-b border-gray-300 sticky top-0 z-20 bg-gray-100">
@@ -22,29 +35,43 @@ export default function Header() {
         </a>
 
         <nav className="flex items-center gap-2 py-2 z-10">
-          {navLinks.map((link) => {
-            if (link.label === "Cart") {
+          <button
+            className="flex items-center justify-center mx-3 w-8 h-8 rounded-full border border-primary dark:border-light transition duration-300 hover:bg-gray-300 dark:hover:bg-gray-600"
+            aria-label="Toggle theme"
+            onClick={toggleTheme}
+          >
+            <span className="sr-only">Toggle Dark Mode</span>
+            <FontAwesomeIcon
+              icon={theme === "dark" ? faMoon : faSun}
+              className="w-4 h-4 dark:text-light text-primary"
+            />
+          </button>
+
+          <>
+            {navLinks.map((link) => {
+              if (link.label === "Cart") {
+                return (
+                  <a
+                    href={link.href}
+                    className="text-primary py-2"
+                    key={link.label}
+                  >
+                    <FontAwesomeIcon icon={faShoppingBasket} />
+                  </a>
+                );
+              }
+
               return (
                 <a
-                  href={link.href}
-                  className="text-primary py-2"
                   key={link.label}
+                  href={link.href}
+                  className="text-center text-lg font-primary font-semibold text-primary py-2"
                 >
-                  <FontAwesomeIcon icon={faShoppingBasket} />
+                  {link.label}
                 </a>
               );
-            }
-
-            return (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-center text-lg font-primary font-semibold text-primary py-2"
-              >
-                {link.label}
-              </a>
-            );
-          })}
+            })}
+          </>
         </nav>
       </div>
     </header>
