@@ -5,8 +5,8 @@ import {
   faTags,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Link, NavLink } from "react-router-dom";
 import useTheme from "../hooks/useTheme";
-import { Link } from "react-router-dom";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -47,24 +47,24 @@ export default function Header() {
             {navLinks.map((link) => {
               if (link.label === "Cart") {
                 return (
-                  <Link
+                  <NavLink
                     to={link.href}
                     className="text-primary py-2 dark:text-light hover:text-dark dark:hover:text-lighter"
                     key={link.label}
                   >
                     <FontAwesomeIcon icon={faShoppingBasket} />
-                  </Link>
+                  </NavLink>
                 );
               }
 
               return (
-                <Link
+                <NavLink
                   key={link.label}
                   to={link.href}
                   className="text-center text-lg font-primary font-semibold text-primary py-2 dark:text-light hover:text-dark dark:hover:text-lighter"
                 >
                   {link.label}
-                </Link>
+                </NavLink>
               );
             })}
           </>
