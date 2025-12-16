@@ -9,10 +9,12 @@ import Cart from "./components/Cart.tsx";
 import Contact from "./components/Contact.tsx";
 import Login from "./components/Login.tsx";
 import Home from "./components/Home.tsx";
+import ErrorPage from "./components/ErrorPage.tsx";
 
 const router = createBrowserRouter([
   {
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "/",
