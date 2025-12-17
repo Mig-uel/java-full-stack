@@ -1,9 +1,15 @@
-import { Form } from "react-router-dom";
+import { useActionData } from "react-router-dom";
+import FormWrapper from "./Form/FormWrapper";
+import Input from "./Form/Input";
+import Label from "./Form/Label";
 import PageTitle from "./PageTitle";
+import Button from "./Form/Button";
 
 export default function Contact() {
+  const data = useActionData() as { success?: boolean };
+
   const labelStyle =
-    "block text-lg font-semibold text-primary dark:text-light mb-2";
+    "block text-lg font-semibold text-primary dark:text-light mb-2 capitalize";
   const textFieldStyle =
     "w-full px-4 py-2 text-base border rounded-md transition border-primary dark:border-light focus:ring focus:ring-dark dark:focus:ring-lighter focus:outline-none text-gray-800 dark:text-lighter bg-white dark:bg-gray-600 placeholder-gray-400 dark:placeholder-gray-300";
 
@@ -18,13 +24,17 @@ export default function Contact() {
       </p>
 
       {/* Contact Form */}
-      <Form method="POST" className="space-y-6 max-w-3xl mx-auto">
+      <FormWrapper
+        method="POST"
+        className="space-y-6 max-w-3xl mx-auto"
+        success={data?.success}
+      >
         {/* Name Field */}
         <div>
-          <label htmlFor="name" className={labelStyle}>
+          <Label htmlFor="name" className={labelStyle}>
             Name
-          </label>
-          <input
+          </Label>
+          <Input
             id="name"
             name="name"
             type="text"
@@ -36,14 +46,14 @@ export default function Contact() {
           />
         </div>
 
-        {/* Email and mobile Row */}
+        {/* Email and Phone Row */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
           {/* Email Field */}
           <div>
-            <label htmlFor="email" className={labelStyle}>
+            <Label htmlFor="email" className={labelStyle}>
               Email
-            </label>
-            <input
+            </Label>
+            <Input
               id="email"
               name="email"
               type="email"
@@ -55,10 +65,10 @@ export default function Contact() {
 
           {/* Mobile Field */}
           <div>
-            <label htmlFor="phone" className={labelStyle}>
+            <Label htmlFor="phone" className={labelStyle}>
               Mobile Number
-            </label>
-            <input
+            </Label>
+            <Input
               id="phone"
               name="phone"
               type="tel"
@@ -73,9 +83,9 @@ export default function Contact() {
 
         {/* Message Field */}
         <div>
-          <label htmlFor="message" className={labelStyle}>
+          <Label htmlFor="message" className={labelStyle}>
             Message
-          </label>
+          </Label>
           <textarea
             id="message"
             name="message"
@@ -90,14 +100,14 @@ export default function Contact() {
 
         {/* Submit Button */}
         <div className="text-center">
-          <button
+          <Button
             type="submit"
             className="px-6 py-2 text-white dark:text-black text-xl rounded-md transition duration-200 bg-primary dark:bg-light hover:bg-dark dark:hover:bg-lighter"
           >
             Submit
-          </button>
+          </Button>
         </div>
-      </Form>
+      </FormWrapper>
     </div>
   );
 }
