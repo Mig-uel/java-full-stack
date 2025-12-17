@@ -11,9 +11,9 @@ export default async function contactAction({ request }: { request: Request }) {
       message: formData.get("message") as string,
     };
 
-    await apiClient.post("/contacts", contact);
+    const res = await apiClient.post("/contacts", contact);
 
-    return { success: true };
+    return res.data.success;
   } catch (error) {
     throw new Response(
       (error as any).message || "Failed to submit contact form",
