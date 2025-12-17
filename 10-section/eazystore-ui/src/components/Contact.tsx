@@ -6,7 +6,7 @@ import PageTitle from "./PageTitle";
 import Button from "./Form/Button";
 
 export default function Contact() {
-  const data = useActionData() as { success?: boolean };
+  const data = useActionData() as boolean;
 
   return (
     <div className="max-w-6xl min-h-213 mx-auto px-6 py-8 font-primary bg-normal-bg dark:bg-dark-bg">
@@ -22,7 +22,7 @@ export default function Contact() {
       <FormWrapper
         method="POST"
         className="space-y-6 max-w-3xl mx-auto"
-        success={data?.success}
+        success={data}
       >
         {/* Name Field */}
         <div>
