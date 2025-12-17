@@ -12,6 +12,7 @@ import Contact from "./components/Contact.tsx";
 import ErrorPage from "./components/ErrorPage.tsx";
 import Home from "./components/Home.tsx";
 import Login from "./components/Login.tsx";
+import ProductDetails from "./components/ProductDetails.tsx";
 import "./index.css";
 
 const router = createBrowserRouter([
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
       {
         path: "/cart",
         element: <Cart />,
+      },
+      {
+        path: "/products/:productId",
+        element: <ProductDetails />,
       },
     ],
   },
