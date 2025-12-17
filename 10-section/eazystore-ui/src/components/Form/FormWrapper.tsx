@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Form } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export default function FormWrapper({
   className,
@@ -17,6 +18,9 @@ export default function FormWrapper({
   useEffect(() => {
     if (success) {
       formRef.current?.reset();
+      toast.success("Form submitted successfully!");
+    } else if (success === false) {
+      toast.error("There was an error submitting the form.");
     }
   }, [success]);
 
