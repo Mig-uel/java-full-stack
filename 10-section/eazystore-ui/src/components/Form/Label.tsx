@@ -1,6 +1,6 @@
 export default function Label({
   htmlFor,
-  className,
+  className = "block text-lg font-semibold text-primary dark:text-light mb-2 capitalize",
   children,
 }: {
   htmlFor: string;

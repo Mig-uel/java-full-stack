@@ -1,7 +1,7 @@
 export default function Input({
   id,
   name,
-  className,
+  className = "w-full px-4 py-2 text-base border rounded-md transition border-primary dark:border-light focus:ring focus:ring-dark dark:focus:ring-lighter focus:outline-none text-gray-800 dark:text-lighter bg-white dark:bg-gray-600 placeholder-gray-400 dark:placeholder-gray-300",
   placeholder,
   type = "text",
   required = false,
