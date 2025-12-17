@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Form } from "react-router-dom";
+import { Form, useSubmit } from "react-router-dom";
 import { toast } from "react-toastify";
 
 export default function FormWrapper({
@@ -14,6 +14,18 @@ export default function FormWrapper({
   success?: boolean;
 }) {
   const formRef = useRef<HTMLFormElement>(null);
+  const submit = useSubmit();
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (window.confirm("Are you sure you want to submit the form?")) {
+      const formData = new FormData(formRef.current!);
+      submit(formData, { method: method });
+    } else {
+      toast.info("Form submission cancelled.");
+    }
+  };
 
   useEffect(() => {
     if (success) {
@@ -25,7 +37,12 @@ export default function FormWrapper({
   }, [success]);
 
   return (
-    <Form method={method} className={className} ref={formRef}>
+    <Form
+      method={method}
+      className={className}
+      ref={formRef}
+      onSubmit={handleSubmit}
+    >
       {children}
     </Form>
   );
